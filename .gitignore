@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+.pytest_cache/
+
+# Entorno
+.env
+
+# Carpeta de investigación (Basura de pruebas)
+research/
+*.bak
+*.tmp
+*.tar.gz
+*.zip
+
+# Egg metadata
+*.egg-info/
+
+# Datos temporales
+data/
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store

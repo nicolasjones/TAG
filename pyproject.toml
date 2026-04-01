@@ -1,0 +1,37 @@
+[project]
+name = "auto-tag-framework"
+version = "0.1.0"
+description = "Motor de automatización robusto para TAG con soporte de IA fallback y TDD."
+authors = [{ name = "Antigravity", email = "ai@ai.com" }]
+dependencies = [
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+    "pydantic-settings>=2.1.0",
+    "httpx>=0.26.0",
+    "python-dotenv>=1.0.1",
+    "structlog>=24.1.0",
+    "google-generativeai>=0.3.2",
+    "google-genai>=1.0.0",
+    "openai>=1.12.0",
+    "apscheduler>=3.10.4",
+    "sqlalchemy>=2.0.25",
+    "aiofiles>=23.2.1",
+    "pandas>=2.2.0",
+    "openpyxl>=3.1.2",
+    "fpdf2>=2.7.8",
+    "google-auth>=2.28.0",
+    "plotly>=5.18.0",
+    "kaleido==0.2.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.5",
+    "pytest-mock>=3.12.0",
+    "black>=24.1.1",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

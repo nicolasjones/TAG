@@ -1,0 +1,14 @@
+pyproject.toml
+src/main.py
+src/auto_tag_framework.egg-info/PKG-INFO
+src/auto_tag_framework.egg-info/SOURCES.txt
+src/auto_tag_framework.egg-info/dependency_links.txt
+src/auto_tag_framework.egg-info/requires.txt
+src/auto_tag_framework.egg-info/top_level.txt
+src/connectors/base.py
+src/connectors/llm/chain.py
+src/connectors/llm/providers/gemini.py
+src/connectors/llm/providers/openai.py
+src/core/config.py
+src/core/logger.py
+tests/test_core.py
