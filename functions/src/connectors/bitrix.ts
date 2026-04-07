@@ -24,7 +24,8 @@ export class BitrixConnector {
       const response = await axios.post(url, params);
       return response.data;
     } catch (error: any) {
-      logger.error(`Error en BitrixConnector (${action}): ${error.message}`);
+      const bitrixError = error.response?.data;
+      logger.error(`Error en BitrixConnector (${action}): ${error.message}`, { bitrixError });
       throw error;
     }
   }

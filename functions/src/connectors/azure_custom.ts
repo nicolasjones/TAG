@@ -94,6 +94,7 @@ export class AzureCustomConnector {
     const url = `${this.graphUrl}/${cleanPath}`;
 
     try {
+      const isContent = cleanPath.endsWith('/content');
       const response = await axios({
         method,
         url,
@@ -101,8 +102,9 @@ export class AzureCustomConnector {
         data,
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          'Content-Type': isContent ? 'application/octet-stream' : 'application/json'
         },
+        responseType: isContent ? 'arraybuffer' : 'json',
         timeout: 60000
       });
       return response.data;

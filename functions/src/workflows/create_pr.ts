@@ -126,7 +126,7 @@ export const main = async (payload: any = null) => {
 
   // PASO 3: Llenar Excel
   const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.load(Buffer.from(templateBytes));
+  await workbook.xlsx.load(templateBytes as any);
   await fillPlaceholders(workbook, payload);
 
   // PASO 4: Get items from Bitrix

@@ -28,3 +28,7 @@ data/
 
 # macOS
 .DS_Store
+
+# Backup de migración (Local solamente)
+_OLD_PYTHON_BACKUP_/
+

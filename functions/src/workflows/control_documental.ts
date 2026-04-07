@@ -45,7 +45,7 @@ export const main = async (payload: any = null) => {
     const content = await azure.execute("GET", `drives/${sharepointDriveId.value()}/root:/${folderPath}/${otiFile.name}:/content`);
     
     const workbook = new ExcelJS.Workbook();
-    await workbook.xlsx.load(Buffer.from(content));
+    await workbook.xlsx.load(content as any);
     const worksheet = workbook.worksheets[0];
 
     const stats = { total: 0, updates: 0, errors: 0 };
