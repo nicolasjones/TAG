@@ -21,6 +21,9 @@
   ],
   "hosting": {
     "public": "src/frontend/dist",
+    "predeploy": [
+      "npm --prefix \"src/frontend\" run build"
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -36,8 +39,5 @@
         "destination": "/index.html"
       }
     ]
-  },
-  "storage": {
-    "rules": "storage.rules"
   }
 }

@@ -1,5 +1,4 @@
-import { onRequest } from "firebase-functions/v2/https";
-import { onSchedule } from "firebase-functions/v2/scheduler";
+import * as functions from "firebase-functions";
 import * as admin from 'firebase-admin';
 import express from "express";
 import fs from "fs";
@@ -48,8 +47,6 @@ app.all("/bitrix", async (req, res) => {
 // --- Management API (para el Dashboard) ---
 
 app.get("/workflows", (req, res) => {
-  // Enumerar archivos en lib/workflows (después de compilar)
-  // O en src/workflows si estamos en desarrollo
   const workflowsPath = path.join(__dirname, "workflows");
   if (!fs.existsSync(workflowsPath)) return res.json([]);
 
@@ -79,7 +76,7 @@ app.post("/schedules", async (req, res) => {
     intervalMinutes,
     payload,
     isActive: true,
-    nextRun: admin.firestore.Timestamp.now() // Ejecutar pronto la primera vez
+    nextRun: admin.firestore.Timestamp.now()
   });
   res.json({ id: doc.id, message: "Agendamiento creado" });
 });
@@ -92,8 +89,6 @@ app.delete("/schedules/:id", async (req, res) => {
 
 app.post("/run/:workflowName", async (req, res) => {
   try {
-    // Si viene del dashboard (browser), no pedimos API Key por ahora si está en el mismo dominio
-    // validateApiKey(req); 
     const result = await runWorkflow(req.params.workflowName, req.body);
     res.json({ status: "success", result });
   } catch (error: any) {
@@ -102,12 +97,21 @@ app.post("/run/:workflowName", async (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-  res.json({ status: "healthy", service: "TAG-TS-FIREBASE" });
+  res.json({ status: "healthy", service: "TAG-TS-FIREBASE-V1" });
 });
 
-export const api = onRequest({ region: "us-central1", timeoutSeconds: 540, memory: "1GiB" }, app);
+// Exportar la API como un función HTTPS (v1) con nombre nuevo
+export const tagApi = functions
+  .runWith({ timeoutSeconds: 540, memory: "1GB" })
+  .https.onRequest(app);
 
-export const heartbeat = onSchedule("every 1 minutes", async () => {
+/**
+ * Tarea programada para vigilancia activa (Heartbeat) - v1 con nombre nuevo
+ */
+export const tagHeartbeat = functions.pubsub
+  .schedule("every 5 minutes")
+  .onRun(async (context) => {
     const scheduler = new SchedulerService();
     await scheduler.processPendingJobs();
-});
+    return null;
+  });

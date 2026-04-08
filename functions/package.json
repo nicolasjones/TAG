@@ -28,5 +28,8 @@
     "firebase-functions-test": "^3.1.0",
     "typescript": "^5.0.0"
   },
+  "engines": {
+    "node": "20"
+  },
   "private": true
 }

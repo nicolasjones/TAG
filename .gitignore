@@ -32,3 +32,10 @@ data/
 # Backup de migración (Local solamente)
 _OLD_PYTHON_BACKUP_/
 
+
+.env
+functions/.env
+*.log
+node_modules/
+lib/
+dist/
